@@ -1,0 +1,15 @@
+# Files to ignore during Render deployment
+node_modules/
+.git/
+.env.local
+.env.development
+*.log
+coverage/
+.nyc_output/
+backups/
+scripts/
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+.idea/

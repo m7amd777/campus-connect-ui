@@ -15,4 +15,12 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    minify: true,
+  },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
 }));

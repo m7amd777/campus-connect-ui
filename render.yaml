@@ -1,0 +1,41 @@
+# Render Blueprint for Campus Connect
+services:
+  # Backend API Service
+  - type: web
+    name: campus-connect-api
+    runtime: python3
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      # Add your MongoDB connection string and other environment variables here
+      - key: MONGODB_URI
+        generateValue: true  # Render will prompt you to set this
+      - key: JWT_SECRET_KEY
+        generateValue: true  # Render will prompt you to set this
+      - key: JWT_ALGORITHM
+        value: HS256
+    
+  # Frontend Static Site
+  - type: web
+    name: campus-connect-ui
+    runtime: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npx serve -s dist -l 3000"
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: VITE_API_URL
+        value: https://campus-connect-api.onrender.com  # Update with your actual backend URL
+
+databases:
+  # You can use Render's PostgreSQL if you want to migrate from MongoDB
+  # or use MongoDB Atlas for MongoDB hosting
+  - name: campus-connect-mongo
+    databaseName: campus_connect
+    user: campus_user
