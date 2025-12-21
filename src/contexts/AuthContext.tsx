@@ -68,7 +68,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     initializeAuth();
   }, []);
 
+  const isEduEmail = (email: string) => /^[^\s@]+@[^\s@]+\.edu$/i.test(email);
+
   const login = async (email: string, password: string): Promise<void> => {
+    if (!isEduEmail(email)) {
+      throw new Error("Please use a .edu email address");
+    }
     try {
       const response = await fetch("http://localhost:8000/api/auth/login", {
         method: "POST",
@@ -98,6 +103,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const register = async (userData: RegisterData): Promise<void> => {
+    if (!isEduEmail(userData.email)) {
+      throw new Error("Please use a .edu email address");
+    }
     try {
       const requestData = {
         username: userData.username,

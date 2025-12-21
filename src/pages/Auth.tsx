@@ -45,8 +45,7 @@ export default function Auth() {
   const [error, setError] = useState("");
 
   const validateEmail = (email: string) => {
-    // Check for .edu domain
-    const eduPattern = /^[^\s@]+@[^\s@]+\.edu$/;
+    const eduPattern = /^[^\s@]+@[^\s@]+\.edu$/i;
     setIsValidEmail(eduPattern.test(email));
   };
 

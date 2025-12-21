@@ -287,9 +287,9 @@ export default function ListingDetail() {
               </div>
             )}{" "}
             {/* Description */}
-            <Card className="mt-8 p-6">
+            <Card className="mt-8 p-6 max-h-72 overflow-y-auto">
               <h2 className="mb-4 text-xl font-semibold">Description</h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap break-words">
                 {listing.description}
               </p>
             </Card>
